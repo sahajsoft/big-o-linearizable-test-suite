@@ -1,0 +1,69 @@
+version: '3.7'
+x-node:
+  &default-node
+  build: ./node
+  env_file: ./secret/node.env
+  secrets:
+    - authorized_keys
+  privileged: true
+  tty: true
+  tmpfs:
+    #- /run:size=100M
+    - /run/lock:size=500M
+  volumes:
+    - "/sys/fs/cgroup:/sys/fs/cgroup:rw"
+  networks:
+    - jecci
+  ports:
+    - ${JECCI_PORT:-22}
+  deploy:
+    resources:
+      limits:
+        memory: 32G
+  mem_swappiness: 100
+  memswap_limit: 32G
+  oom_kill_disable: true
+
+secrets:
+  authorized_keys:
+    file: ./secret/authorized_keys
+
+services:
+  control:
+    container_name: jecci-control
+    hostname: control
+    depends_on:
+      - n1
+      - n2
+      - n3
+    build: ./control
+    env_file: ./secret/control.env
+    privileged: true
+    ports:
+      - "9022:22"
+      - "8080"
+      - "9091:9091"
+    networks:
+      - jecci
+    deploy:
+      resources:
+        limits:
+          memory: 16G
+    mem_swappiness: 100
+    memswap_limit: 16G
+    oom_kill_disable: true
+  n1:
+    << : *default-node
+    container_name: jecci-n1
+    hostname: n1
+  n2:
+    << : *default-node
+    container_name: jecci-n2
+    hostname: n2
+  n3:
+    << : *default-node
+    container_name: jecci-n3
+    hostname: n3
+
+networks:
+  jecci:
