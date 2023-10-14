@@ -46,6 +46,17 @@ bash bin/remove-all.sh
 * If there are any command line arguments needed, those can be added here (bigo/db.clj:22)
 
 
+**Test suite would print the below statement when the test succeed**
+
+![img.png](assets/success.png)
+
+**Example for failure case:**
+
+![img_1.png](assets/failure.png)
+
+Recording for explanation on the test suite here: https://drive.google.com/file/d/1yLwv4VMcahrLMzZhZaI2fHRRL3zDkW9Q/view
+
+
 ## License
 
 Copyright © 2023 FIXME
