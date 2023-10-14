@@ -41,6 +41,9 @@
     (json/parse-stream (io/reader str-or-stream) true)
     (json/parse-string str-or-stream true)))
 
+(defn filter-req [m]
+  (select-keys m [:eventId, :data]))
+
 (defn parse-resp
   [response]
   (when-not (:body response)
@@ -48,7 +51,7 @@
              :response response}))
 
   (try+
-    (let [body (parse-json (:body response))
+    (let [body (filter-req (parse-json (:body response)))
           h    (:headers response)]
       (with-meta body
                  {:status           (:status response)}))
