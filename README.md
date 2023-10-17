@@ -11,9 +11,9 @@ cd docker
 bash bin/up  --dev -d
 bash bin/console
 // Use this command for quick feedback
-lein run test --concurrency 10 --test-limit 5
+lein run test --concurrency 10 --time-limit 5
 // Use this command only when the final testing in needed
-lein run test --concurrency 100 --test-limit 60 --test-count 10
+lein run test --concurrency 100 --time-limit 60 --test-count 10
 ```
 
 ### To check the run histories
