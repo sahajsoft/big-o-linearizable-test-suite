@@ -1,6 +1,6 @@
 # See https://github.com/jgoerzen/docker-debian-base
 # See https://hub.docker.com/r/jgoerzen/debian-base-standard
-FROM jgoerzen/debian-base-standard:bullseye
+FROM arm64v8/debian:bullseye
 
 # I think this is a bug--debian-base-setup crashes because policy-rc.d isn't
 # present in this image, and if you create it, exim crashes... do we actually NEED this? Maybe not...
@@ -33,7 +33,7 @@ ENV DEBBASE_SSH enabled
 # Install Jecci deps
 RUN apt-get install -qy build-essential bzip2 curl faketime iproute2 \
     iptables iputils-ping libzip4 logrotate man man-db net-tools ntpdate \
-    psmisc python rsyslog sudo tar unzip vim wget ca-certificates
+    psmisc rsyslog sudo tar unzip vim wget ca-certificates
 
 EXPOSE 22
 
@@ -47,4 +47,7 @@ RUN groupadd jecci &&\
 
 COPY lowlatdb /usr/bin/lowlatdb
 
-CMD ["/usr/local/bin/boot-debian-base"]
+COPY bootscript.sh /tmp/bootscript.sh
+RUN chmod +x /tmp/bootscript.sh
+
+CMD ["/tmp/bootscript.sh"]
