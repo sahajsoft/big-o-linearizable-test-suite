@@ -45,6 +45,9 @@ services:
       - "9091:9091"
     networks:
       - jecci
+    volumes:
+      - "~/.m2:/root/.m2:rw"
+      - "~/.lein:/root/.lein:rw"
     deploy:
       resources:
         limits:
