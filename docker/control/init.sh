@@ -10,7 +10,7 @@ if [ ! -f ~/.ssh/known_hosts ]; then
     echo $SSH_PUBLIC_KEY > ~/.ssh/id_rsa.pub
     echo > ~/.ssh/known_hosts
     for f in $(seq 1 5); do
-      ssh-keyscan -t rsa n$f >> ~/.ssh/known_hosts
+      ssh-keyscan -t ed25519 n$f >> ~/.ssh/known_hosts
     done
 fi
 
