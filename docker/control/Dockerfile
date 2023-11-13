@@ -31,10 +31,7 @@ RUN apt install -qy vim \
     #for rhizome
     xserver-xorg-video-dummy
 
-RUN wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein && \
-   mv lein /usr/bin && \
-   chmod +x /usr/bin/lein && \
-   mkdir -p $HOME/.lein
+RUN apt install -qy leiningen
 
 COPY xorg.conf /etc/X11/xorg.conf
 ENV DISPLAY=:0
