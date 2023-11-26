@@ -91,7 +91,7 @@
   ([client key opts]
    (try+
      (get* client key opts)
-     (catch [:status 404] _ nil))))
+     (catch [:status 404] _ {:errorCode 100}))))
 
 
 (defn reset!
