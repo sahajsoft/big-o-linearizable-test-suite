@@ -30,6 +30,8 @@
           (assoc op
             :type  (if (= :read (:f op)) :fail :info)
             :error :timeout))
+        (catch [:status 500] e
+          (assoc op :type :fail, :error :internal-server-error))
 
         (catch [:errorCode 100] e
           (assoc op :type :fail, :error :not-found)))))

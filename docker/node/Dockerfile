@@ -47,4 +47,6 @@ RUN groupadd jecci &&\
 
 COPY lowlatdb /usr/bin/lowlatdb
 
+RUN chmod +x /usr/bin/lowlatdb
+
 CMD ["/usr/local/bin/boot-debian-base"]
